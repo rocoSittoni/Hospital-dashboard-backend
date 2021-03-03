@@ -1,4 +1,4 @@
-// Route: /api/users
+// route: /api/users
 
 const { Router } = require('express');
 const { check } = require('express-validator');
