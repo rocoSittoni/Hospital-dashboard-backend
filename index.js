@@ -17,6 +17,9 @@ app.use(express.json());
 // database
 dbConnection();
 
+//public directory
+app.use(express.static('public'));
+
 // mongodb atlas user: mean_user
 // password: 2Pk2lL2xDgbCFiLj
 
