@@ -4,7 +4,7 @@ const Doctor = require('../models/doctors');
 const getDoctors = async(req, res = response) => {
 
     const doctors = await Doctor.find().populate('user', 'name img')
-                                       .populate('user', 'name img');
+                                       .populate('hospital', 'name img');
 
     res.json({
         ok: true,
@@ -23,7 +23,7 @@ const getDoctorById = async(req, res = response) => {
     
         res.json({
             ok: true,
-            doctors
+            doctor
         })
     } catch(error){
         console.log(error)

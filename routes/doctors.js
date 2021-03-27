@@ -38,17 +38,13 @@ router.put( '/:id',
     updateDoctor);
 
 router.delete( '/:id',
-    [
         validateJWT,
         deleteDoctor
-    ]
 );
 
 router.get( '/:id',
-    [
         validateJWT,
         getDoctorById
-    ]
 );
 
 module.exports = router;
