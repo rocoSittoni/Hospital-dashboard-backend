@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 
 const validateJWT = (req, res, next) => {
@@ -28,6 +29,69 @@ const validateJWT = (req, res, next) => {
 
 }
 
+const validateAdminRole = async(req, res, next) => {
+
+    const uid = req.uid;
+
+    try{
+    const userDB = await User.findById(uid);
+    if(!userDB){
+        return res.status(404).json({
+            ok: false,
+            msg: 'User doesnt exists'
+        });
+    }
+    if (userDB.role !== 'ADMIN_ROLE'){
+        return res.status(403).json({
+            ok: false,
+            msg: 'User doesnt exists'
+        });
+    }
+    next();
+
+    } catch {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to an administrator'
+        })
+    }
+
+}
+
+const validateAdminRole_or_sameUser = async(req, res, next) => {
+
+    const uid = req.uid;
+    const id = req.params.id;
+
+    try{
+    const userDB = await User.findById(uid);
+    if(!userDB){
+        return res.status(404).json({
+            ok: false,
+            msg: 'User doesnt exists'
+        });
+    }
+    if (userDB.role !== 'ADMIN_ROLE' && uid !== id){
+        return res.status(403).json({
+            ok: false,
+            msg: 'User doesnt exists'
+        });
+    }
+    next();
+
+    } catch {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to an administrator'
+        })
+    }
+
+}
+
 module.exports = {
-    validateJWT
+    validateJWT,
+    validateAdminRole,
+    validateAdminRole_or_sameUser
 }
