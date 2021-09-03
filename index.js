@@ -20,9 +20,6 @@ dbConnection();
 //public directory
 app.use(express.static('public'));
 
-// mongodb atlas user: mean_user
-// password: 2Pk2lL2xDgbCFiLj
-
 // routes
 app.use( '/api/users', require('./routes/users'));
 app.use( '/api/hospitals', require('./routes/hospitals'));
